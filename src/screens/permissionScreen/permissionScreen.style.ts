@@ -6,8 +6,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32,
         color: color.textBlack
+    },
+    contentContainer: {
+        flexGrow: 1,
+        paddingHorizontal: 22
     }
-
 })
 
 
