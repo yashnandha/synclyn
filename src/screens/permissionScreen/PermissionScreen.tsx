@@ -1,8 +1,15 @@
-import { View } from "react-native"
+import { defaultStyles } from "@theme"
+import { StatusBar, View } from "react-native"
+import { Text } from "react-native"
+import styles from "./permissionScreen.style"
+import { CustomStatusBar } from "@components"
+
 
 const PermissionScreen = () => {
     return (
-        <View></View>
+        <View style={defaultStyles.container}>
+            <CustomStatusBar translucent />
+        </View>
     )
 }
 

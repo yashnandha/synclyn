@@ -5,10 +5,8 @@
  * @format
  */
 
-import { StatusBar, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import CameraScreen from './src/screens/cameraScreen/CameraScreen';
 import Route from '@navigation/index';
 
 function App() {

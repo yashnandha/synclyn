@@ -1,4 +1,5 @@
 export default {
     backgroundWhite: '#f7f7f7',
-    white: '#ffffff'
+    white: '#fffffff',
+    textBlack: '#202020'
 }
