@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     footer: {
         marginTop: 12,
         alignItems: 'center',
+        bottom:40
     },
     continueButton: {
         width: '100%',
