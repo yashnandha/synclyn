@@ -3,6 +3,7 @@ import { ScrollView, StatusBar, View } from "react-native"
 import { Text } from "react-native"
 import styles from "./permissionScreen.style"
 import { CustomStatusBar } from "@components"
+import SvgIndex from "@svgIndex"
 
 
 
@@ -12,7 +13,7 @@ const PermissionScreen = () => {
         <View style={defaultStyles.container}>
             <CustomStatusBar />
             <ScrollView style={styles.contentContainer}>
-                <Text>Synclyn</Text>
+                <SvgIndex.SynclynIcon height={60} width={100} />
             </ScrollView>
         </View>
     )

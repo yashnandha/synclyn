@@ -8,7 +8,7 @@
         "./src/assets/imageIndex.ts"
       ],
       "@svgIndex": [
-        "./src/assets/svgIndex.ts"
+        "src/assets/svgIndex.ts"
       ],
       "@components": [
         "./src/components/componentsIndex.ts"
