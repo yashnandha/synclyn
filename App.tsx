@@ -8,6 +8,10 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Route from '@navigation/index';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();
+
 
 function App() {
   return (

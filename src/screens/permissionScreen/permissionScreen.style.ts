@@ -1,27 +1,28 @@
-import { deviceWidth } from "@utility/common"
-import { StyleSheet } from "react-native"
+import { color } from '@theme'
+import { deviceWidth } from '@utility/common'
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#0B0616"
+        backgroundColor: color.permissionBackground,
     },
     background: {
         flex: 1,
-        width: "100%",
-        height: "100%"
+        width: '100%',
+        height: '100%',
     },
     safeArea: {
         flex: 1,
     },
     overlay: {
         flex: 1,
-        backgroundColor: "rgba(11, 6, 22, 0.88)", // Moody solid overlay letting background glow through
+        backgroundColor: color.permissionOverlay,
         paddingHorizontal: 24,
         paddingBottom: 24,
     },
     header: {
-        alignItems: "center",
+        alignItems: 'center',
         marginTop: 40,
         marginBottom: 30,
     },
@@ -32,18 +33,18 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 28,
-        fontWeight: "800",
-        color: "#FFFFFF",
-        textAlign: "center",
+        fontWeight: '800',
+        color: color.white,
+        textAlign: 'center',
         letterSpacing: 0.5,
     },
     highlightText: {
-        color: "#FF9F9F", // Peach accent
+        color: color.permissionPeach,
     },
     subtitle: {
         fontSize: 14,
-        color: "#C0B7E8", // Soft lavender
-        textAlign: "center",
+        color: color.white,
+        textAlign: 'center',
         marginTop: 10,
         lineHeight: 20,
         paddingHorizontal: 20,
@@ -55,15 +56,15 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     permissionCard: {
-        flexDirection: "row",
-        alignItems: "center",
-        backgroundColor: "#160F22", // Solid dark card background
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: color.permissionCardBackground,
         borderWidth: 1,
-        borderColor: "#281D3B",
+        borderColor: color.permissionCardBorder,
         borderRadius: 20,
         padding: 16,
         marginBottom: 16,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 6 },
         shadowOpacity: 0.2,
         shadowRadius: 10,
@@ -73,26 +74,25 @@ const styles = StyleSheet.create({
         width: 48,
         height: 48,
         borderRadius: 14,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 1,
     },
-    // Solid background colors for category icons (Moody colors)
     cameraIconWrapper: {
-        backgroundColor: "#221936", // Solid dark purple
-        borderColor: "#3D2B5E",
+        backgroundColor: color.permissionCameraIconBg,
+        borderColor: color.permissionCameraIconBorder,
     },
     micIconWrapper: {
-        backgroundColor: "#311C2B", // Solid dark peach/pink
-        borderColor: "#5A2C49",
+        backgroundColor: color.permissionMicIconBg,
+        borderColor: color.permissionMicIconBorder,
     },
     locationIconWrapper: {
-        backgroundColor: "#122335", // Solid dark blue
-        borderColor: "#1E3D5C",
+        backgroundColor: color.permissionLocationIconBg,
+        borderColor: color.permissionLocationIconBorder,
     },
     storageIconWrapper: {
-        backgroundColor: "#10281F", // Solid dark green
-        borderColor: "#1B4734",
+        backgroundColor: color.permissionStorageIconBg,
+        borderColor: color.permissionStorageIconBorder,
     },
     textContainer: {
         flex: 1,
@@ -101,56 +101,83 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
         fontSize: 16,
-        fontWeight: "700",
-        color: "#FFFFFF",
+        fontWeight: '700',
+        color: color.white,
         marginBottom: 4,
+    },
+    optionalLabel: {
+        fontSize: 11,
+        fontWeight: '400',
+        color: color.permissionTextFaded,
     },
     cardDescription: {
         fontSize: 12,
-        color: "rgba(255, 255, 255, 0.6)",
+        color: color.permissionTextMuted,
         lineHeight: 16,
+    },
+    actionContainer: {
+        width: 84,
+        height: 36,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
+    actionOverlay: {
+        position: 'absolute',
+        right: 0,
     },
     actionButton: {
         paddingVertical: 8,
         paddingHorizontal: 16,
         borderRadius: 12,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     allowButton: {
-        backgroundColor: "#241A35", // Solid dark purple button
+        backgroundColor: color.permissionAllowButtonBg,
         borderWidth: 1,
-        borderColor: "#3D2B5E",
+        borderColor: color.permissionAllowButtonBorder,
     },
     allowButtonText: {
         fontSize: 12,
-        fontWeight: "700",
-        color: "#FF9F9F", // Peach color
+        fontWeight: '700',
+        color: color.permissionPeach,
     },
     grantedBadge: {
-        backgroundColor: "#10281F", // Solid dark green
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: color.permissionGrantedBadgeBg,
         borderWidth: 1,
-        borderColor: "#1B4734",
+        borderColor: color.permissionGrantedBadgeBorder,
     },
     grantedText: {
         fontSize: 12,
-        fontWeight: "700",
-        color: "#4ADE80", // Green
+        fontWeight: '700',
+        color: color.permissionSuccess,
+        marginLeft: 4,
+    },
+    allowButtonCompact: {
+        height: 36,
+        borderRadius: 10,
+        paddingHorizontal: 12,
+    },
+    allowButtonTextCompact: {
+        fontSize: 12,
+        fontWeight: '700',
     },
     footer: {
         marginTop: 12,
-        alignItems: "center",
+        alignItems: 'center',
     },
     continueButton: {
-        width: "100%",
+        width: '100%',
         marginTop: 8,
     },
     skipText: {
         fontSize: 14,
-        fontWeight: "600",
-        color: "rgba(255, 255, 255, 0.4)",
+        fontWeight: '600',
+        color: color.permissionTextFaded,
         marginTop: 18,
-        textDecorationLine: "underline",
+        textDecorationLine: 'underline',
     },
 })
 
