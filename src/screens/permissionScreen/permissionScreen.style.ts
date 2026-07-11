@@ -1,3 +1,4 @@
+import { deviceWidth } from "@utility/common"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
@@ -25,12 +26,9 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     logoContainer: {
-        marginBottom: 16,
-        padding: 12,
-        borderRadius: 20,
-        backgroundColor: "#160F22", // Solid background
-        borderWidth: 1,
-        borderColor: "#281D3B",
+        marginBottom: 40,
+        width: deviceWidth,
+        paddingHorizontal: 20,
     },
     title: {
         fontSize: 28,
