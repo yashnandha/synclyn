@@ -38,7 +38,6 @@ const PermissionScreen = () => {
     }, [continueEnabled, isRequiredGranted])
 
     const footerAnimatedStyle = useAnimatedStyle(() => ({
-        opacity: interpolate(continueEnabled.value, [0, 1], [0.55, 1]),
         transform: [
             {
                 translateY: interpolate(continueEnabled.value, [0, 1], [6, 0]),
@@ -50,12 +49,12 @@ const PermissionScreen = () => {
         {
             key: 'camera',
             title: 'Camera',
-            description: 'Capture and create photos and videos.',
+            description: 'Capture and create photos and videos',
             granted: permissions.camera,
             request: requestCamera,
             icon: (
                 <SvgIndex.CameraIcon
-                    color={permissions.camera ? color.permissionSuccess : color.permissionCameraIcon}
+                    color={color.permissionCameraIcon}
                     width={22}
                     height={22}
                 />
@@ -65,12 +64,12 @@ const PermissionScreen = () => {
         {
             key: 'microphone',
             title: 'Microphone',
-            description: 'Record high-fidelity audio along with video.',
+            description: 'Record high-fidelity audio along with video',
             granted: permissions.microphone,
             request: requestMicrophone,
             icon: (
                 <SvgIndex.MicIcon
-                    color={permissions.microphone ? color.permissionSuccess : color.permissionMicIcon}
+                    color={color.permissionMicIcon}
                     width={22}
                     height={22}
                 />
@@ -80,12 +79,12 @@ const PermissionScreen = () => {
         {
             key: 'location',
             title: 'Location',
-            description: 'Tag your moments with geographical location data.',
+            description: 'Tag your moments with geographical location data',
             granted: permissions.location,
             request: requestLocation,
             icon: (
                 <SvgIndex.LocationIcon
-                    color={permissions.location ? color.permissionSuccess : color.permissionLocationIcon}
+                    color={color.permissionLocationIcon}
                     width={22}
                     height={22}
                 />
@@ -105,7 +104,6 @@ const PermissionScreen = () => {
                         <Animated.View entering={ENTRANCE.logo} style={styles.logoContainer}>
                             <SvgIndex.SynclynIcon height={40} width={90} color={color.white} fill={color.white} />
                         </Animated.View>
-
                         <Animated.View entering={ENTRANCE.title}>
                             <HighlightedText
                                 textStyle={styles.title}

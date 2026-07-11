@@ -37,9 +37,10 @@ const styles = StyleSheet.create({
         color: color.white,
         textAlign: 'center',
         letterSpacing: 0.5,
+        includeFontPadding: false
     },
     highlightText: {
-        color: color.permissionPeach,
+        color: color.peach,
     },
     subtitle: {
         fontSize: 14,
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         lineHeight: 20,
         paddingHorizontal: 20,
+        includeFontPadding: false
     },
     scrollView: {
         flex: 1,
@@ -61,19 +63,14 @@ const styles = StyleSheet.create({
         backgroundColor: color.permissionCardBackground,
         borderWidth: 1,
         borderColor: color.permissionCardBorder,
-        borderRadius: 20,
-        padding: 16,
-        marginBottom: 16,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.2,
-        shadowRadius: 10,
-        elevation: 4,
+        borderRadius: 15,
+        padding: 15,
+        marginBottom: 10,
     },
     iconWrapper: {
-        width: 48,
-        height: 48,
-        borderRadius: 14,
+        width: 45,
+        height: 45,
+        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
@@ -98,22 +95,27 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 16,
         marginRight: 8,
+        includeFontPadding: false,
+        color: color.textGray
     },
     cardTitle: {
         fontSize: 16,
         fontWeight: '700',
         color: color.white,
         marginBottom: 4,
+        includeFontPadding: false
     },
     optionalLabel: {
         fontSize: 11,
         fontWeight: '400',
-        color: color.permissionTextFaded,
+        color: color.textGray,
+        includeFontPadding: false
     },
     cardDescription: {
         fontSize: 12,
-        color: color.permissionTextMuted,
+        color: color.textGray,
         lineHeight: 16,
+        includeFontPadding: false
     },
     actionContainer: {
         width: 84,
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     actionButton: {
         paddingVertical: 8,
         paddingHorizontal: 16,
-        borderRadius: 12,
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -140,45 +142,39 @@ const styles = StyleSheet.create({
     allowButtonText: {
         fontSize: 12,
         fontWeight: '700',
-        color: color.permissionPeach,
+        color: color.peach,
+        includeFontPadding: false
     },
     grantedBadge: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: color.permissionGrantedBadgeBg,
-        borderWidth: 1,
-        borderColor: color.permissionGrantedBadgeBorder,
+        backgroundColor: color.tintGreen,
     },
     grantedText: {
         fontSize: 12,
         fontWeight: '700',
-        color: color.permissionSuccess,
+        color: color.green,
         marginLeft: 4,
+        includeFontPadding: false
     },
     allowButtonCompact: {
         height: 36,
-        borderRadius: 10,
+        borderRadius: 18,
         paddingHorizontal: 12,
     },
     allowButtonTextCompact: {
         fontSize: 12,
         fontWeight: '700',
+        includeFontPadding: false
     },
     footer: {
-        marginTop: 12,
+        marginTop: 20,
         alignItems: 'center',
-        bottom:40
+        bottom: 30
     },
     continueButton: {
         width: '100%',
         marginTop: 8,
-    },
-    skipText: {
-        fontSize: 14,
-        fontWeight: '600',
-        color: color.permissionTextFaded,
-        marginTop: 18,
-        textDecorationLine: 'underline',
     },
 })
 

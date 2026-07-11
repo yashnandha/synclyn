@@ -2,12 +2,13 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     button: {
-        height: 56,
-        borderRadius: 18,
+        height: 55,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 24,
         flexDirection: 'row',
+        borderRadius: 55 / 2,
+        width: '100%'
     },
     primary: {
         backgroundColor: '#9A75F0', // Moody Purple

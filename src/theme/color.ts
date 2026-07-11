@@ -2,13 +2,17 @@ export default {
     backgroundWhite: '#f7f7f7',
     white: '#ffffff',
     textBlack: '#202020',
+    peach: "#FF9F9F",
+    textGray: "#a1a1a1",
+    green: "#4ADE80",
+    tintGreen: "#10281F",
+
 
     permissionBackground: '#0B0616',
     permissionOverlay: 'rgba(11, 6, 22, 0.88)',
     permissionPeach: '#FF9F9F',
     permissionCardBackground: '#160F22',
     permissionCardBorder: '#281D3B',
-    permissionTextMuted: 'rgba(255, 255, 255, 0.6)',
     permissionTextFaded: 'rgba(255, 255, 255, 0.4)',
     permissionSuccess: '#4ADE80',
 

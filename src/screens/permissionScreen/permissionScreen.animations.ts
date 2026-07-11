@@ -1,6 +1,6 @@
 import { Easing, FadeIn, FadeInDown, FadeInUp, LinearTransition } from 'react-native-reanimated'
 
-export const SMOOTH_EASING = Easing.bezier(0.22, 1, 0.36, 1)
+export const SMOOTH_EASING = Easing.bezier(0.22, 1, 0.36, 3)
 
 export const SPRING_SMOOTH = {
     damping: 26,
@@ -21,12 +21,12 @@ export const ENTRANCE = {
     subtitle: FadeInUp.duration(850).delay(260).easing(SMOOTH_EASING),
     card: (index: number) =>
         FadeInUp
-            .delay(320 + index * 90)
+            .delay(400 + index * 90)
             .duration(750)
             .easing(SMOOTH_EASING),
     footer: (cardCount: number) =>
         FadeInUp
-            .delay(320 + cardCount * 90 + 140)
+            .delay(400 + cardCount * 90 + 140)
             .duration(800)
             .easing(SMOOTH_EASING),
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import { TouchableOpacity, Text, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
 import { ButtonProps } from './buttonProps';
 import styles from './button.style';
 
@@ -15,8 +15,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
     // Determine button styling based on state and variant
     const getButtonStyle = () => {
-        const baseStyle = [styles.button];
-        
+        const baseStyle: Array<ViewStyle> = [styles.button];
         if (variant === 'primary') {
             baseStyle.push(disabled ? styles.primaryDisabled : styles.primary);
         } else if (variant === 'secondary') {
@@ -37,8 +36,7 @@ const Button: React.FC<ButtonProps> = ({
 
     // Determine text styling based on state and variant
     const getTextStyle = () => {
-        const baseTextStyle = [styles.text];
-
+        const baseTextStyle: Array<TextStyle> = [styles.text];
         if (variant === 'primary') {
             baseTextStyle.push(disabled ? styles.textPrimaryDisabled : styles.textPrimary);
         } else if (variant === 'secondary') {
