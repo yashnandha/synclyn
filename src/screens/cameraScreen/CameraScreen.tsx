@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   ScrollView,
   StatusBar,
@@ -17,6 +17,7 @@ import SvgIndex from '@svgIndex'
 import { useIsActive } from '@hooks/useIsActive'
 import { useSafeAreaPadding } from '@hooks/useSafeAreaPadding'
 import Svg, { Circle, Path, G, Rect } from 'react-native-svg'
+import { deviceWidth } from '@utility/common'
 
 import useCameraScreen from './useCameraScreen'
 import styles from './cameraScreen.style'
@@ -56,6 +57,45 @@ export default function CameraScreen() {
     zoom,
     handleZoomSelect,
   } = useCameraScreen()
+  const MODES = ['CINEMATIC', 'VIDEO', 'PHOTO', 'PORTRAIT', 'PANO'] as const
+  const [activeMode, setActiveMode] = useState<typeof MODES[number]>('PHOTO')
+  const modeScrollRef = useRef<ScrollView>(null)
+
+  const ITEM_WIDTH = 90
+  const spacerWidth = (deviceWidth - ITEM_WIDTH) / 2
+
+  const scrollToMode = (index: number, animated = true) => {
+    modeScrollRef.current?.scrollTo({
+      x: index * ITEM_WIDTH,
+      animated,
+    })
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const idx = MODES.indexOf(activeMode)
+      if (idx !== -1) {
+        scrollToMode(idx, false)
+      }
+    }, 150)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleMomentumScrollEnd = (event: any) => {
+    const offsetX = event.nativeEvent.contentOffset.x
+    const index = Math.round(offsetX / ITEM_WIDTH)
+    if (index >= 0 && index < MODES.length) {
+      const mode = MODES[index]
+      if (mode !== activeMode) {
+        setActiveMode(mode)
+        if (mode === 'VIDEO' || mode === 'CINEMATIC') {
+          setCaptureMode('video')
+        } else {
+          setCaptureMode('photo')
+        }
+      }
+    }
+  }
 
   const [showConsole, setShowConsole] = useState(false)
 
@@ -133,34 +173,6 @@ export default function CameraScreen() {
             <View style={[styles.gridLineHorizontal, { top: '66.6%' }]} />
           </View>
         )}
-
-        {/* Floating Zoom Pill Overlay */}
-        <View style={styles.zoomPillWrapper}>
-          <View style={styles.zoomPillContainer}>
-            {(['0.5', '1x', '2', '3'] as const).map((opt) => {
-              const isActive = selectedZoomOption === opt
-              return (
-                <TouchableOpacity
-                  key={opt}
-                  style={[
-                    styles.zoomCircle,
-                    isActive && styles.zoomCircleActive,
-                  ]}
-                  onPress={() => handleZoomSelect(opt)}
-                >
-                  <Text
-                    style={[
-                      styles.zoomText,
-                      isActive && styles.zoomTextActive,
-                    ]}
-                  >
-                    {opt === '0.5' ? '0,5' : opt}
-                  </Text>
-                </TouchableOpacity>
-              )
-            })}
-          </View>
-        </View>
       </View>
 
       {/* Recording Duration Indicator */}
@@ -173,7 +185,7 @@ export default function CameraScreen() {
 
       {/* Translucent UI Controls Overlay */}
       <View style={[styles.overlayContainer, safePadding]}>
-        
+
         {/* Top Header Section */}
         <View>
           <View style={styles.headerRow}>
@@ -187,50 +199,51 @@ export default function CameraScreen() {
               }}
             >
               {flash === 'off' ? (
-                <Svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <Path d="M19 11l-6 6h4l-1 5 6-7h-5l1-4z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <Path d="M2 2l20 20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+                <Svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <Path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <Path d="M2 2l20 20" stroke="#EF4444" strokeWidth="2" strokeLinecap="round" />
                 </Svg>
               ) : flash === 'on' ? (
-                <Svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <Path d="M19 11l-6 6h4l-1 5 6-7h-5l1-4z" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <Svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <Path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </Svg>
               ) : (
-                <Svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <Path d="M19 11l-6 6h4l-1 5 6-7h-5l1-4z" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <Circle cx="8" cy="8" r="3" stroke="#EAB308" strokeWidth="1.5" />
-                  <Path d="M7 11h2" stroke="#EAB308" strokeWidth="1.5" />
+                <Svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <Path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <Path d="M16 16.5l2.5-6 2.5 6" stroke="#EAB308" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <Path d="M17.2 13.5h3.6" stroke="#EAB308" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </Svg>
               )}
             </TouchableOpacity>
 
-            {/* Filter / Exposure Button */}
-            <TouchableOpacity 
+            {/* Grid Toggle Button */}
+            <TouchableOpacity
               style={styles.headerIconButton}
               onPress={() => setShowGrid(!showGrid)}
             >
-              <Svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                <Path d="M12 2a10 10 0 000 20V2z" fill="#ffffff" />
-                <Circle cx="12" cy="12" r="10" stroke="#ffffff" strokeWidth="2" />
+              <Svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <Rect x="3" y="3" width="18" height="18" rx="2" stroke={showGrid ? '#EAB308' : '#ffffff'} strokeWidth="2" />
+                <Path d="M9 3v18M15 3v18M3 9h18M3 15h18" stroke={showGrid ? '#EAB308' : '#ffffff'} strokeWidth="1.5" />
               </Svg>
             </TouchableOpacity>
 
-            {/* Settings Chevron Dropdown */}
-            <TouchableOpacity 
+            {/* Telemetry Console Toggle Button */}
+            <TouchableOpacity
               style={styles.headerIconButton}
               onPress={() => setShowConsole(!showConsole)}
             >
-              <Svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                <Path d="M6 9l6 6 6-6" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <Svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <Rect x="3" y="3" width="18" height="18" rx="3" stroke={showConsole ? '#4ADE80' : '#ffffff'} strokeWidth="2" />
+                <Path d="M7 8l4 4-4 4M13 15h4" stroke={showConsole ? '#4ADE80' : '#ffffff'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </Svg>
             </TouchableOpacity>
 
             {/* Live Photo / Concentric Dotted Circles Icon */}
             <TouchableOpacity style={styles.headerIconButton}>
-              <Svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                <Circle cx="12" cy="12" r="10" stroke="#ffffff" strokeWidth="1.5" strokeDasharray="3,3" />
+              <Svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <Circle cx="12" cy="12" r="9" stroke="#ffffff" strokeWidth="1.5" strokeDasharray="3 3" />
                 <Circle cx="12" cy="12" r="6" stroke="#ffffff" strokeWidth="1.5" />
-                <Circle cx="12" cy="12" r="2.5" fill="#ffffff" />
+                <Circle cx="12" cy="12" r="3" fill="#ffffff" />
               </Svg>
             </TouchableOpacity>
           </View>
@@ -268,29 +281,74 @@ export default function CameraScreen() {
 
         {/* Bottom Control Section */}
         <View style={styles.bottomContainer}>
-          {/* Mode Selector horizontal bar */}
+          {/* Zoom Bar placed above Mode Selector */}
+          <View style={styles.zoomContainer}>
+            <View style={styles.zoomPillContainer}>
+              {(['0.5', '1x', '2', '3'] as const).map((opt) => {
+                const isActive = selectedZoomOption === opt
+                return (
+                  <TouchableOpacity
+                    key={opt}
+                    style={[
+                      styles.zoomCircle,
+                      isActive && styles.zoomCircleActive,
+                    ]}
+                    onPress={() => handleZoomSelect(opt)}
+                  >
+                    <Text
+                      style={[
+                        styles.zoomText,
+                        isActive && styles.zoomTextActive,
+                      ]}
+                    >
+                      {opt}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              })}
+            </View>
+          </View>
+
+          {/* Scrollable Mode Selector horizontal bar */}
           <View style={styles.modeSelectorContainer}>
-            {['CINEMATIC', 'VIDEO', 'PHOTO', 'PORTRAIT', 'PANO'].map((mode) => {
-              const isActive = (mode === 'PHOTO' && enablePhoto) || (mode === 'VIDEO' && enableVideo)
-              const onPressMode = () => {
-                if (mode === 'VIDEO' || mode === 'CINEMATIC') {
-                  setCaptureMode('video')
-                } else {
-                  setCaptureMode('photo')
+            <ScrollView
+              ref={modeScrollRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              snapToInterval={ITEM_WIDTH}
+              decelerationRate="fast"
+              contentContainerStyle={styles.modeScrollContent}
+              onMomentumScrollEnd={handleMomentumScrollEnd}
+              snapToAlignment="center"
+            >
+              <View style={{ width: spacerWidth }} />
+              {MODES.map((mode, index) => {
+                const isActive = mode === activeMode
+                const onPressMode = () => {
+                  setActiveMode(mode)
+                  scrollToMode(index, true)
+                  if (mode === 'VIDEO' || mode === 'CINEMATIC') {
+                    setCaptureMode('video')
+                  } else {
+                    setCaptureMode('photo')
+                  }
                 }
-              }
-              return (
-                <TouchableOpacity
-                  key={mode}
-                  style={styles.modeButtonNew}
-                  onPress={onPressMode}
-                >
-                  <Text style={[styles.modeTextNew, isActive && styles.modeTextNewActive]}>
-                    {mode}
-                  </Text>
-                </TouchableOpacity>
-              )
-            })}
+                return (
+                  <TouchableOpacity
+                    key={mode}
+                    style={styles.modeButtonNew}
+                    onPress={onPressMode}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.modeTextNew, isActive && styles.modeTextNewActive]}>
+                      {mode}
+                    </Text>
+                    {isActive && <View style={styles.modeActiveDot} />}
+                  </TouchableOpacity>
+                )
+              })}
+              <View style={{ width: spacerWidth }} />
+            </ScrollView>
           </View>
 
           {/* Capture Trigger and Flip Controls */}
@@ -342,9 +400,11 @@ export default function CameraScreen() {
               style={styles.flipButton}
               onPress={toggleCameraType}
             >
-              <Svg width="44" height="44" viewBox="0 0 24 24" fill="none">
-                <Circle cx="12" cy="12" r="11" fill="rgba(255, 255, 255, 0.12)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                <Path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6a5.87 5.87 0 01-2.8-.7l-1.01 1.01A7.88 7.88 0 0012 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.01-1.01A7.88 7.88 0 0012 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z" fill="#ffffff" />
+              <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <Path d="M4 12a8 8 0 0113.6-5.6L20 9" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <Path d="M20 5v4h-4" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <Path d="M20 12a8 8 0 01-13.6 5.6L4 15" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <Path d="M4 19v-4h4" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </Svg>
             </TouchableOpacity>
           </View>

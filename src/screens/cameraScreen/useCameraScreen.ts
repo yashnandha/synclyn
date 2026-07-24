@@ -32,7 +32,7 @@ export default function useCameraScreen() {
 
   // System logs to show on screen overlay
   const [logs, setLogs] = useState<string[]>([])
-  
+
   const addLog = useCallback((msg: string) => {
     setLogs((prev) => [msg, ...prev.slice(0, 9)])
   }, [])
@@ -72,7 +72,7 @@ export default function useCameraScreen() {
   // Location Permissions Request
   useEffect(() => {
     if (!location.hasPermission) {
-      ;(async () => {
+      ; (async () => {
         console.log(`requesting location permission...`)
         const has = await location.requestPermission()
         console.log(`location permssion: ${has}`)
@@ -116,9 +116,9 @@ export default function useCameraScreen() {
         const end = Date.now()
         const time = `${(end - start).toFixed(2)}ms`
         const logMsg = `[Frame 1] Resized ${frame.width}x${frame.height} -> ${resized.width}x${resized.height} rgb-float32 in ${time}`
-        
+
         console.log(logMsg)
-        
+
         // Read buffer pixels
         try {
           const buffer = resized.getPixelBuffer()
@@ -177,6 +177,7 @@ export default function useCameraScreen() {
   const extensions = useCameraDeviceExtensions(device)
   useEffect(() => {
     if (extensions == null) return
+
     console.log(
       'Available Camera Extensions:',
       extensions.map((e) => e.type),
@@ -187,11 +188,11 @@ export default function useCameraScreen() {
   const handleZoomSelect = useCallback((option: '0.5' | '1x' | '2' | '3') => {
     if (!device) return
     setSelectedZoomOption(option)
-    
+
     let targetZoom = 1
     const minZ = device.minZoom ?? 1
     const maxZ = device.maxZoom ?? 10
-    
+
     if (option === '0.5') {
       targetZoom = minZ
     } else if (option === '1x') {
@@ -201,7 +202,7 @@ export default function useCameraScreen() {
     } else if (option === '3') {
       targetZoom = Math.min(maxZ, Math.max(minZ, 3))
     }
-    
+
     setZoom(targetZoom)
   }, [device])
 
@@ -214,6 +215,12 @@ export default function useCameraScreen() {
         {
           location: location.currentLocation,
           flashMode: flash,
+          enableDepthData: true,
+          enableRedEyeReduction: true,
+          enableCameraCalibrationDataDelivery: true,
+          enableShutterSound: false,
+          enableDistortionCorrection: true,
+          enableVirtualDeviceFusion: true,
         },
         {},
       )
@@ -222,7 +229,7 @@ export default function useCameraScreen() {
       console.log(
         `Captured ${photo.width}x${photo.height} ${photo.containerFormat} Photo in ${duration}ms!`,
       )
-      
+
       let tempPath = ''
       try {
         tempPath = await photo.saveToTemporaryFileAsync()
@@ -243,7 +250,7 @@ export default function useCameraScreen() {
       }
       photo.dispose()
 
-      navigation.navigate('Photo', { photo: serializedPhoto as any })
+      // navigation.navigate('Photo', { photo: serializedPhoto as any })
     } catch (e) {
       console.error(`Failed to take Photo!`, e)
     }
