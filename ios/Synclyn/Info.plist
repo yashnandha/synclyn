@@ -39,6 +39,10 @@
 	<string>Synclyn needs access to your Microphone to record audio for video recordings.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Synclyn needs access to your Location to add GPS tags to captured photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Synclyn needs access to your photo library to save captured photos and videos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Synclyn needs access to your photo library to save captured photos and videos.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

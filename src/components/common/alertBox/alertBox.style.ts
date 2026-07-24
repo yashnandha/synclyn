@@ -1,5 +1,9 @@
-import {font} from '@theme';
 import {StyleSheet} from 'react-native';
+
+const font = {
+  poppinsMedium: undefined,
+  poppinsRegular: undefined,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -7,7 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   backDropped: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   contentContainer: {
